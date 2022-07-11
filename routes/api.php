@@ -30,10 +30,8 @@ Route::post('like/{reply}', 'LikeController@unlikeIt');
 Route::post('auth/signup', 'AuthController@signup');
 
 Route::group([
-
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function ($router) {
 
     Route::post('login', 'AuthController@login');

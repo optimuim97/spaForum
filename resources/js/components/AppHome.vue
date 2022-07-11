@@ -1,6 +1,7 @@
 <template>
     <div>
         <toolbar></toolbar>
+            <router-view></router-view>
         <app-footer></app-footer>
     </div>
 </template>
@@ -10,7 +11,8 @@
     import appFooter from './AppFooter'
 
     export default{
-        components:{
+        components:
+        {
             toolbar,
             appFooter
         }

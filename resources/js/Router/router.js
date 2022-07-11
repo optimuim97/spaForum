@@ -1,18 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '../components/login/Login'
+import Category from "../components/category/Category"
 
 Vue.use(VueRouter)
 
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
-
 const routes = [
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
+    { path: '/login', component: Login },
+    { path: '/category', component: Category },
 ]
 
 const router = new VueRouter({
-    routes
+    routes,
+    hashbang:true,
+    mode: 'history',
 })
 
 export default router;
