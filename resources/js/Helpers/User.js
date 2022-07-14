@@ -22,9 +22,51 @@ class User{
         const username = res.data.user    
 
         if(Token.isValid(access_token)){
-            AppStorage.storeData(access_token, username)
+            AppStorage.storeData(username, access_token)
         }
 
+    }
+
+    hasToken(){
+        const storedToken = AppStorage.getToken()
+
+        if(storedToken){
+            return Token.isValid(storedToken) ? true : false
+        }
+
+        return false;
+    }
+
+    loggIn(){
+        return this.hasToken()
+    }
+
+    logout(){
+        AppStorage.clear()
+    }
+
+    name(){
+        if(this.loggIn()){
+            return AppStorage.getUser()
+        }
+    }
+
+    id(){
+        if(this.loggIn()){
+            const token = AppStorage.getToken()
+            const payload = Token.payload(token)
+
+            if(Token.isValid(token)){
+               return payload.sub
+            }   
+
+        }else{
+            alert('User is not loggin')
+        }
+    }
+
+    responseAfterRegister(res){
+        console.log(res)
     }
 }
 

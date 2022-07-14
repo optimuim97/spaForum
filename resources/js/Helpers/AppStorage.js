@@ -20,8 +20,8 @@ class AppStorage{
 
     getDatas()
     {
-        user = localStorage.getItem(user);
-        token = localStorage.getItem(token)
+        user = localStorage.getItem('user');
+        token = localStorage.getItem('token')
 
         console.log(user, token)
 
@@ -32,12 +32,12 @@ class AppStorage{
     }
 
     getUser(){
-        user = localStorage.getItem(user)
+        user = localStorage.getItem('user')
         return user;
     }
 
     getToken(){
-        token = localStorage.getItem(token)
+        const token = localStorage.getItem('token')
         return token;
     }
 }
