@@ -5,24 +5,28 @@ class User{
     
     login (data){
         axios.post('api/auth/login', data)
-        .then((res) => {  
-            this.responseAfterLogin(
-                res
-                // Token.payload(res)
-            )
+        .then((res) => { 
+            this.responseAfterLogin(res)
         })
-        .catch(error => (error) => {
+        .catch(error => (error) =>  {
+            alert('Error')
             console.log(error.data);
         })
     }
+
+    register(){
+
+    }
     
     responseAfterLogin(res){
-
+        
         const access_token = res.data.access_token
         const username = res.data.user    
 
         if(Token.isValid(access_token)){
             AppStorage.storeData(username, access_token)
+        }else{
+            alert('User is not valid')
         }
 
     }
@@ -65,9 +69,6 @@ class User{
         }
     }
 
-    responseAfterRegister(res){
-        console.log(res)
-    }
 }
 
 export default User = new User()

@@ -12,8 +12,8 @@
                 label="Name"
                 required
             ></v-text-field>
-            <span class="red--text" v-if="form.errors">
-                {{ form.errors.email[0] ? form.errors.email[0] : "" }}
+            <span class="red--text" v-if="errors">
+                {{ errors.email[0] ? errors.email[0] : "" }}
             </span>
 
             <v-text-field
@@ -23,8 +23,8 @@
                 required
             ></v-text-field>
 
-            <span class="red--text" v-if="form.errors">
-                {{ form.errors.name ? form.errors.name[0] : "" }}
+            <span class="red--text" v-if="errors">
+                {{ errors.name ? errors.name[0] : "" }}
             </span>
 
             <v-text-field
@@ -34,8 +34,8 @@
                 required
             ></v-text-field>
 
-            <span class="red--text" v-if="form.errors">
-                {{ form.errors.password ? form.errors.password[0] : "" }}
+            <span class="red--text" v-if="errors">
+                {{ errors.password ? errors.password[0] : "" }}
             </span>
 
             <v-text-field 
@@ -71,25 +71,23 @@ export default {
                 email : null,
                 password : null,
                 password_confirmation : null,
-                errors : null
-            }
+            },
+            errors : null
         }
     },
     methods: {
         register(){
+
             axios.post('api/auth/signup', this.form)
             .then((res) => {
-                User.responseAfterRegister(res)
+                User.responseAfterLogin(res)
+
+                this.$router.push({name:'forum'})
+
             })
-            .catch(
-                (error) => {
-                    this.form.errors = error.response.data.errors 
-                
-                    console.log(
-                        this.form.errors
-                    )
-                }
-            );
+            .catch( (error) => {
+                this.errors = error.response.data.errors 
+            });
         }
     }
 }

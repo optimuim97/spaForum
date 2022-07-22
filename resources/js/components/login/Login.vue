@@ -1,6 +1,4 @@
 <template>
-
-
     <v-container>
         <h2>Login</h2>
         <v-form
@@ -50,8 +48,18 @@
         },
         methods : {
             login (){
-                User.login(this.form)
-            }     
+                User.login(this.form)  
+                
+                setInterval(()=>{
+                    this.$router.push({name:"forum"})
+                }, 5000)
+                
+            }
+        },
+        created(){
+            if(User.loggIn()){
+                this.$router.push({name:'forum'})
+            }
         }
     }
 </script>
