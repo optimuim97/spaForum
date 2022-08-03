@@ -1,10 +1,12 @@
 <template>
-   <v-container>
+   <v-container fluid>
         <v-layout row wrap>
             <v-flex xs8>
-                <question  v-for="question in questions" :key="question.path" :data='question'></question>
+                <question  v-for="question in questions" :key="question.path" :question='question'></question>
             </v-flex>
+
             Sidebar
+            
         </v-layout>
    </v-container>
 </template>
@@ -22,7 +24,6 @@
         },
         created(){
             axios.get('/api/question').then((result) => {
-                console.log(result.data) 
                 
                 if(result.status == 200){
                     this.questions = result.data.data

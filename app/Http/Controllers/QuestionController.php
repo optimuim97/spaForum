@@ -38,6 +38,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $request['slug']= str_slug($request->title);
         Question::create($request->all());
 
         return  response('Created', HttpFoundationResponse::HTTP_CREATED);
@@ -51,7 +52,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return $question;
+        return new QuestionResource($question);
     }
 
     /**

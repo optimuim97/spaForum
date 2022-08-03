@@ -8,7 +8,7 @@
             @submit.prevent="register"
         >
             <v-text-field
-                v-model="form.email"
+                v-model="form.name"
                 label="Name"
                 required
             ></v-text-field>
@@ -17,7 +17,7 @@
             </span>
 
             <v-text-field
-                v-model="form.name"
+                v-model="form.email"
                 label="E-mail"
                 type="email"
                 required
@@ -77,13 +77,16 @@ export default {
     },
     methods: {
         register(){
-
             axios.post('api/auth/signup', this.form)
             .then((res) => {
                 User.responseAfterLogin(res)
 
-                this.$router.push({name:'forum'})
-
+                if(User.loggIn()){
+                    this.$router.push( { name : 'forum' })
+                }else{
+                    console.log('Une erreur est survenue ...')
+                }
+                
             })
             .catch( (error) => {
                 this.errors = error.response.data.errors 

@@ -7,11 +7,15 @@ import Vuetify from 'vuetify'
 import router from './Router/router.js'
 import User from "./Helpers/User.js"
 import AppStorage from "./Helpers/AppStorage.js"
+import Editor from "vuetify-markdown-editor";
+
 
 Vue.use(Vuetify)
+Vue.use(Editor)
 
 window.User = User
 window.AppStorage = AppStorage
+window.EventBus = new Vue();
 
 Vue.component('AppHome', require('./components/AppHome.vue').default)
 

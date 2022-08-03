@@ -27,6 +27,6 @@ class Question extends Model
     }
 
     public function getPath(){
-        return asset("api/questions/$this->slug");
+        return "/question/$this->slug";
     }
 }

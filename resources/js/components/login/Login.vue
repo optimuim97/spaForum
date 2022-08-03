@@ -49,16 +49,15 @@
         methods : {
             login (){
                 User.login(this.form)  
-                
-                setInterval(()=>{
-                    this.$router.push({name:"forum"})
-                }, 5000)
-                
+
+                console.log(User.loggIn())
+
+                this.$router.push({name: 'forum' })
             }
         },
         created(){
             if(User.loggIn()){
-                this.$router.push({name:'forum'})
+                this.$router.push({name: 'forum' })
             }
         }
     }

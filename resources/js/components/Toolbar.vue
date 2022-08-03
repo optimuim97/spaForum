@@ -13,8 +13,8 @@
           <div
               class="hidden-sm-and-down"
           > 
-            <router-link v-for="item in items" v-if="item.show" :key="item.title" :to="item.to">
-              <v-btn text> {{item.title}}</v-btn>
+            <router-link v-for="item in items" :key="item.title" :to="item.to">
+              <v-btn text  v-if="item.show"> {{item.title}} </v-btn>
             </router-link>
 
           </div>
@@ -23,19 +23,23 @@
 </template>
 
 <script>
-    console.log(!User.loggIn())
+    console.log(User.loggIn())  
     export default {
         data(){
           return {
               items : [
-                {title : "Forum", to: '/forum', show : User.loggIn() },
-                {title : "Pose ta Question", to: '/ask', show : User.loggIn() },
-                {title : "Les Categories", to: '/category', show : ! ( User.loggIn() ) },
-                {title : "Se Connecté", to: '/login', show : ! (User.loggIn() ) },
-                {title : "Déconnexion", to: '/logout', show : User.loggIn() }
+                { title : "Forum", to: '/forum', show : User.loggIn() },
+                { title : "Pose ta Question", to: '/ask', show : User.loggIn() },
+                { title : "Les Categories", to: '/category', show : ! ( User.loggIn() ) },
+                { title : "Se Connecté", to: '/login', show : ! (User.loggIn() ) },
+                { title : "Déconnexion", to: '/logout', show : User.loggIn() }
               ]
-              
           }
+        },
+        created(){
+          EventBus.$on('logout', () => {
+              User.logout();
+          }) 
         }
     }
 </script>

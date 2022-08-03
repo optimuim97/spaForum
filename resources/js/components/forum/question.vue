@@ -1,22 +1,29 @@
 <template>
-    <v-card>
-        <v-card fluid>
-            <v-card-title> {{ data.title }}</v-card-title>
+    
+        <v-card>
+            <v-card-title> 
+                <router-link :to="question.url">
+                    {{ question.title }}    
+                </router-link>         
+            </v-card-title>
 
-            <v-card-subtitle> {{ data.created_at }}</v-card-subtitle>
+            <v-card-subtitle> {{ question.created_at }}</v-card-subtitle>
 
             <v-card-text>
-                 {{ data.body }}
+                 {{ question.body }}
             </v-card-text>
         </v-card>
-    </v-card>
+    
 </template>
 
 <script>
 
     export default {
-        props:['data'],
+        props:['question'],
         data(){
+            return {
+                
+            }
         }
     }
 </script>
