@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+
+    public static function boot(){
+        parent::boot();
+
+        static::creating(function($question){
+            $question->slug = str_slug($question->title);
+        });
+
+    }
+
     protected $guarded = [];
 
     public function getRouteKeyName()

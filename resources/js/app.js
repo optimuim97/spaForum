@@ -7,8 +7,10 @@ import Vuetify from 'vuetify'
 import router from './Router/router.js'
 import User from "./Helpers/User.js"
 import AppStorage from "./Helpers/AppStorage.js"
-import Editor from "vuetify-markdown-editor";
-
+import { Editor } from '@toast-ui/vue-editor';
+import mdiVue from 'mdi-vue/v2'
+import * as mdijs from '@mdi/js'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(Vuetify)
 Vue.use(Editor)

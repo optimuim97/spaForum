@@ -64,6 +64,10 @@ class User {
             alert("User is not loggin");
         }
     }
+
+    own(user_id){
+        return this.id() == user_id
+    }
 }
 
 export default User = new User();

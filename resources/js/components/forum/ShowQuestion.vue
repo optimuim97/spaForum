@@ -5,7 +5,7 @@
                         <div class="headline"> 
                             {{ data.title }}
                         </div>
-                        <span class="grey--text">{{ data.user }} said {{ data.created_at }}</span>
+                        <span class="grey--text" small>{{ data.user }} said {{ data.created_at }}</span>
                         <v-spacer></v-spacer>
                         <div d-flex>
                             <v-btn color="teal" class="ml-5"> 5 Replies </v-btn>
@@ -13,11 +13,43 @@
                 </v-card-title>
                 <v-card-text v-html="data.body"></v-card-text>
             </v-container>
+
+            <v-card-actions v-if="own()">     
+                <v-btn icon>
+                    <v-icon color="orange" @click="edit">mdi-pencil</v-icon>
+                </v-btn>
+
+                <v-btn icon>
+                    <v-icon color="red" @click="deleteQuestion">mdi-delete</v-icon>
+                </v-btn>
+            </v-card-actions>
+
         </v-card>
 </template>
 
 <script>
     export default {
-        props : ['data']
+        props : ['data'],
+        methods : {
+            edit(){
+                EventBus.$emit('startEditing')
+            },  
+            deleteQuestion(){
+                
+                axios.delete(`/api/question/${this.data.slug}`).then((result) => {
+                    console.log(result)
+
+                    this.$router.push('/forum')
+                }).catch((err) => {
+                    console.log(err)
+                });
+            },
+            own(){
+                return User.own(this.data.user_id)
+            }
+        },
+        created(){
+            this.own()
+        }
     }
 </script>

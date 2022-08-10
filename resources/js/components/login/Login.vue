@@ -20,16 +20,13 @@
             
             </v-text-field>
 
-            <v-btn
-                type="submit"
-                color="green"
-            >
-                Login
+            <v-btn type="submit" color="green">
+                Connexion
             </v-btn>
 
             <v-btn color="blue">
                 <router-link to="/signup">
-                    Sign Up
+                    Inscription
                 </router-link>
             </v-btn>
         </v-form>
@@ -48,11 +45,10 @@
         },
         methods : {
             login (){
-                User.login(this.form)  
+                    User.login(this.form) 
 
-                console.log(User.loggIn())
-
-                this.$router.push({name: 'forum' })
+                    this.$router.push({name: 'forum' })
+                
             }
         },
         created(){

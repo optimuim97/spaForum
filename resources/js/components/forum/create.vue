@@ -4,7 +4,7 @@
 
         <h1> Ajouter une Question </h1>
 
-        <v-form @submit="askQuestion">
+        <v-form @submit.prevent="askQuestion">
             <v-text-field
                 name="title"
                 label="Titre"
@@ -15,40 +15,40 @@
             <v-select
                 :items="categories"
                 item-text="name"
+                item-value="id"
                 item-id="id"
                 v-model="form.category_id"
                 label="Category"
-            ></v-select>
+            ></v-select>   
 
-            <v-text-field
-                name="description"
+            <editor 
+                name="body"
                 label="Description"
-                id="description"
-                v-model="form.body"
-            >
-            </v-text-field>
-
-            <Editor
-                mode="editor"
-                ref="editor"
-                :outline="true"
-                :render-config="renderConfig"
-                v-model="body"
+                id="body"
+                ref="toastuiEditor"
+                @change="getHTML()"
+                getHTML
             />
 
-            <v-btn color="success" type="submit">Ajouter</v-btn>
+            <div>
+                <v-btn color="success" type="submit">Ajouter</v-btn>
+            </div>
         </v-form>
     
    </v-container>
 </template>
 
 <script>
-    import { Editor } from "vuetify-markdown-editor";
+    import '@toast-ui/editor/dist/toastui-editor.css';
+    import { Editor } from '@toast-ui/vue-editor';
+
     export default {
-        components : {Editor},
+        components : {
+            editor: Editor
+        },
         data(){
             return {
-                form : {    
+                form : {   
                     title :null, 
                     category_id : null, 
                     body : null
@@ -60,28 +60,24 @@
         methods : {
             askQuestion (){
                 axios.post('/api/question', this.form).then((result) => {
-                    console.log(result)
+                    this.$router.push({path : result.data.url })
                 }).catch((err) => {
-                    console.log(error.data.error)
+                    this.errors = error.data
                 });
-            }
+            },
+            getHTML() {
+                let html = this.$refs.toastuiEditor.invoke('getHTML');
+                this.form.body = html
+            }   
         },
         created(){
             axios.get('api/category').then((result) => {
-                console.log(result)
-
                 this.categories = result.data.data
             }).catch((err) => { 
                 console.log(err.data)
+                this.errors = err.data
             });
         },
-        mounted() {
-            // Access properties or methods using $refs
-            // this.$refs.editor.focus();
-            // this.$refs.editor.upload();
-
-            // Dark theme
-            this.$vuetify.theme.dark = true;
-        }
+      
     }
 </script>
